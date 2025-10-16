@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-# Create your views here.
+class PingView(APIView):
+    def get(self, request):
+        # simple, no auth, proves DRF + routing work
+        return Response({"ok": True, "data": {"pong": True}})

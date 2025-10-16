@@ -24,5 +24,6 @@ def health(_request):
     
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("health", health),
+    path("health/", health),
+    path("api/v1/", include ("authapp.urls")),
 ]
