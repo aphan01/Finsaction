@@ -3,22 +3,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 #POST
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer  #
 from .models import User
-from rest_framework import permissions, generics
+from rest_framework import permissions, generics, status #
 #Logout
-from rest_framework import status
 from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken
-#Login
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.tokens import RefreshToken
 
-
-class PingView(APIView):
-    def get(self, request):
-        # simple, no auth, proves DRF + routing work
-        return Response({"ok": True, "data": {"pong": True}})
     
-class RegisterView(generics.createAPIView):
+class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
