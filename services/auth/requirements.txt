@@ -1,4 +1,13 @@
+# Core framework
 Django==5.2
 djangorestframework==3.16.0
+
+# Database driver
 psycopg[binary]==3.2.10
+
+# Env management
 python-dotenv==1.0.1
+
+# Authentication / Security
+djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.4.0

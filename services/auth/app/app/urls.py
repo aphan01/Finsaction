@@ -16,13 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
-
-def health(_request):
-    return JsonResponse({"ok": True, "service": "auth", "status": "healthy"})
+class healthView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        return Response({"ok": True, "service": "auth", "status": "healthy"})
     
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("health", health),
+    path("health/", healthView.as_view(), name= "health"),
+    path("api/v1/auth/", include ("authapp.urls")),
 ]
