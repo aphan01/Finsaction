@@ -1,2 +1,2 @@
 # Finsaction
-Usage-based billing SaaS platform – Vue + FastAPI + Django + MongoDB + Stripe integration
+⚙️ A usage-based billing SaaS platform powered by React, FastAPI, Django, PostgreSQL, and Stripe, designed for automated payments and multi-tenant scalability.
