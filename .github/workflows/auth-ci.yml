@@ -1,0 +1,41 @@
+name: Auth Service CI
+
+on:
+  push:
+    paths:
+      - "services/auth/**"
+      - ".github/workflows/auth-ci.yml"
+  pull_request:
+    paths:
+      - "services/auth/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/auth/app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('services/auth/app/requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-django pytest-cov factory_boy
+      - name: Run tests (SQLite, CI settings)
+        env:
+          DJANGO_SETTINGS_MODULE: app.settings.ci
+        run: pytest -q --cov --cov-report=xml --cov-report=term-missing
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: services/auth/app/coverage.xml

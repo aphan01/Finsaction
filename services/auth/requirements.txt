@@ -11,3 +11,10 @@ python-dotenv==1.0.1
 # Authentication / Security
 djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.4.0
+
+drf-spectacular>=0.28.0
+
+# Dev / Testing
+pytest>=8.0
+pytest-django>=4.8
+factory_boy>=3.3

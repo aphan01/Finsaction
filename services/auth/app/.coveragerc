@@ -1,0 +1,15 @@
+[run]
+branch = True
+source = app,authapp
+
+[report]
+show_missing = True
+skip_covered = True
+omit =
+    app/asgi.py
+    app/wsgi.py
+    app/settings/prod.py
+    app/settings/__init__.py
+    app/urls.py
+    */migrations/*
+    */tests/*
