@@ -20,16 +20,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.http import JsonResponse
 
-class healthView(APIView):
+class HealthView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         return Response({"ok": True, "service": "auth", "status": "healthy"})
-    
+def root(_): return JsonResponse({"ok": True, "service": "Finsaction Auth", "v": 1})
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("health/", healthView.as_view(), name= "health"),
+    path("health/", HealthView.as_view(), name= "health"),
     path("api/v1/auth/", include ("authapp.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
+    path("", root),
 ]

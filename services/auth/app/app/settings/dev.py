@@ -7,7 +7,8 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = []
 CSRF_TRUSTED_ORIGINS = []
-
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 # settings/dev.py
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "no-reply@finsaction.dev"
