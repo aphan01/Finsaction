@@ -25,8 +25,22 @@ from django.http import JsonResponse
 class HealthView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        return Response({"ok": True, "service": "auth", "status": "healthy"})
-def root(_): return JsonResponse({"ok": True, "service": "Finsaction Auth", "v": 1})
+        db_ok = True
+        try:
+            from django.db import connection
+            with connection.cursor() as cur:
+                cur.execute("SELECT 1;")
+                cur.fetchone()
+        except Exception:
+            db_ok = False
+        return Response({
+            "ok": True, 
+            "service": "auth", 
+            "status": "healthy",
+            "db": "ok" if db_ok else "down"
+            })
+def root(_request): 
+    return JsonResponse({"ok": True, "service": "Finsaction Auth", "v": 1})
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("health/", HealthView.as_view(), name= "health"),
